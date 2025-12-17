@@ -1,0 +1,17 @@
+[
+  {
+    "label": "Generate OpenAPI",
+    "command": "./openapi.generate",
+    "reveal": "always",
+  },
+  {
+    "label": "Build",
+    "command": "JAVA_HOME=$(/usr/libexec/java_home -v 21) gradle wrapper",
+    "reveal": "always",
+  },
+  {
+    "label": "Assemble",
+    "command": "JAVA_HOME=$(/usr/libexec/java_home -v 21) ./gradlew check assemble",
+    "reveal": "always",
+  },
+]

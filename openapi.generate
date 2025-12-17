@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Generate the OpenAPI client
+openapi-generator generate -i https://api.winwinkit.com/openapi-yaml -g kotlin -o . --additional-properties=groupId=com.winwinkit,packageName=com.winwinkit.client

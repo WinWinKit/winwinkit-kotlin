@@ -1,5 +1,5 @@
-group 'com.winwinkit'
-version '0.1.0'
+group 'com.winwinkit.client'
+version '0.2.0'
 
 wrapper {
     gradleVersion = '8.7'

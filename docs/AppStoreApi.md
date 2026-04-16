@@ -13,7 +13,7 @@ All URIs are relative to *https://api.winwinkit.com*
 
 Get Offer Code
 
-Get an offer code with subscription and prices by the offer code id.
+Get an offer code with subscription and prices by the offer code id. Deprecated: this endpoint is deprecated and will be removed in a future release; please migrate away from it.
 
 ### Example
 ```kotlin

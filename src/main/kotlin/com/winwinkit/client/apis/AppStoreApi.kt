@@ -49,7 +49,7 @@ class AppStoreApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
     /**
      * GET /app-store/offer-codes/{offer_code_id}
      * Get Offer Code
-     * Get an offer code with subscription and prices by the offer code id.
+     * Get an offer code with subscription and prices by the offer code id. Deprecated: this endpoint is deprecated and will be removed in a future release; please migrate away from it.
      * @param offerCodeId The offer code id to retrieve.
      * @param xApiKey The API key to authenticate with.
      * @return OfferCodeResponse
@@ -61,7 +61,9 @@ class AppStoreApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun getOfferCode(offerCodeId: kotlin.String, xApiKey: kotlin.String) : OfferCodeResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = getOfferCodeWithHttpInfo(offerCodeId = offerCodeId, xApiKey = xApiKey)
 
         return when (localVarResponse.responseType) {
@@ -82,7 +84,7 @@ class AppStoreApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
     /**
      * GET /app-store/offer-codes/{offer_code_id}
      * Get Offer Code
-     * Get an offer code with subscription and prices by the offer code id.
+     * Get an offer code with subscription and prices by the offer code id. Deprecated: this endpoint is deprecated and will be removed in a future release; please migrate away from it.
      * @param offerCodeId The offer code id to retrieve.
      * @param xApiKey The API key to authenticate with.
      * @return ApiResponse<OfferCodeResponse?>
@@ -91,7 +93,9 @@ class AppStoreApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun getOfferCodeWithHttpInfo(offerCodeId: kotlin.String, xApiKey: kotlin.String) : ApiResponse<OfferCodeResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = getOfferCodeRequestConfig(offerCodeId = offerCodeId, xApiKey = xApiKey)
 
         return request<Unit, OfferCodeResponse>(
@@ -106,6 +110,7 @@ class AppStoreApi(basePath: kotlin.String = defaultBasePath, client: Call.Factor
      * @param xApiKey The API key to authenticate with.
      * @return RequestConfig
      */
+    @Deprecated(message = "This operation is deprecated.")
     fun getOfferCodeRequestConfig(offerCodeId: kotlin.String, xApiKey: kotlin.String) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()

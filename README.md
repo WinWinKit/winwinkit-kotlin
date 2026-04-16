@@ -8,6 +8,41 @@ Please follow the [Kotlin SDK](https://winwinkit.com/docs/sdk/kotlin-sdk) guide 
 
 Additionally, check out our [docs](https://winwinkit.com/docs) and [guides](https://winwinkit.com/guides) for more information about the platform.
 
+## Installation
+
+The SDK is distributed via [JitPack](https://jitpack.io/).
+
+Add the JitPack repository to your root `build.gradle`:
+
+```groovy
+allprojects {
+    repositories {
+        // ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Then add the dependency to your module's `build.gradle` (replace `<tag>` with the desired [release tag](https://github.com/winwinkit/winwinkit-kotlin/releases)):
+
+```groovy
+dependencies {
+    implementation 'com.github.winwinkit:winwinkit-kotlin:<tag>'
+}
+```
+
+Or, using Kotlin DSL (`build.gradle.kts`):
+
+```kotlin
+repositories {
+    maven("https://jitpack.io")
+}
+
+dependencies {
+    implementation("com.github.winwinkit:winwinkit-kotlin:<tag>")
+}
+```
+
 ## Requirements
 
 * Kotlin 1.7.21
@@ -33,6 +68,8 @@ All URIs are relative to *https://api.winwinkit.com*
 | *RewardsActionsApi* | [**withdrawCredits**](docs/RewardsActionsApi.md#withdrawcredits) | **POST** /users/{app_user_id}/rewards/withdraw-credits | Withdraw Credits |
 | *UsersApi* | [**createOrUpdateUser**](docs/UsersApi.md#createorupdateuser) | **POST** /users | Create or Update User |
 | *UsersApi* | [**getUser**](docs/UsersApi.md#getuser) | **GET** /users/{app_user_id} | Get User |
+| *UsersApi* | [**registerAppStoreTransaction**](docs/UsersApi.md#registerappstoretransaction) | **POST** /users/{app_user_id}/transactions/app-store | Register App Store Transaction |
+| *UsersApi* | [**registerGooglePlayTransaction**](docs/UsersApi.md#registergoogleplaytransaction) | **POST** /users/{app_user_id}/transactions/google-play | Register Google Play Transaction |
 
 
 <a id="documentation-for-models"></a>
@@ -135,6 +172,8 @@ All URIs are relative to *https://api.winwinkit.com*
  - [com.winwinkit.client.models.UserOfferCodeRewardActive](docs/UserOfferCodeRewardActive.md)
  - [com.winwinkit.client.models.UserOfferCodeRewardExpired](docs/UserOfferCodeRewardExpired.md)
  - [com.winwinkit.client.models.UserReferredBy](docs/UserReferredBy.md)
+ - [com.winwinkit.client.models.UserRegisterAppStoreTransactionRequest](docs/UserRegisterAppStoreTransactionRequest.md)
+ - [com.winwinkit.client.models.UserRegisterGooglePlayTransactionRequest](docs/UserRegisterGooglePlayTransactionRequest.md)
  - [com.winwinkit.client.models.UserResponse](docs/UserResponse.md)
  - [com.winwinkit.client.models.UserResponseData](docs/UserResponseData.md)
  - [com.winwinkit.client.models.UserRevenueCatEntitlementRewardActive](docs/UserRevenueCatEntitlementRewardActive.md)

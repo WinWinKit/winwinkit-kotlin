@@ -21,6 +21,8 @@ import okhttp3.HttpUrl
 
 import com.winwinkit.client.models.ErrorsResponse
 import com.winwinkit.client.models.UserCreateRequest
+import com.winwinkit.client.models.UserRegisterAppStoreTransactionRequest
+import com.winwinkit.client.models.UserRegisterGooglePlayTransactionRequest
 import com.winwinkit.client.models.UserResponse
 
 import com.squareup.moshi.Json
@@ -195,6 +197,164 @@ class UsersApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory =
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/users/{app_user_id}".replace("{"+"app_user_id"+"}", encodeURIComponent(appUserId.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * POST /users/{app_user_id}/transactions/app-store
+     * Register App Store Transaction
+     * Registers the mapping between a user and their Apple originalTransactionId.
+     * @param appUserId The app user id of the user.
+     * @param xApiKey The API key to authenticate with.
+     * @param userRegisterAppStoreTransactionRequest 
+     * @return void
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun registerAppStoreTransaction(appUserId: kotlin.String, xApiKey: kotlin.String, userRegisterAppStoreTransactionRequest: UserRegisterAppStoreTransactionRequest) : Unit {
+        val localVarResponse = registerAppStoreTransactionWithHttpInfo(appUserId = appUserId, xApiKey = xApiKey, userRegisterAppStoreTransactionRequest = userRegisterAppStoreTransactionRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> Unit
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * POST /users/{app_user_id}/transactions/app-store
+     * Register App Store Transaction
+     * Registers the mapping between a user and their Apple originalTransactionId.
+     * @param appUserId The app user id of the user.
+     * @param xApiKey The API key to authenticate with.
+     * @param userRegisterAppStoreTransactionRequest 
+     * @return ApiResponse<Unit?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun registerAppStoreTransactionWithHttpInfo(appUserId: kotlin.String, xApiKey: kotlin.String, userRegisterAppStoreTransactionRequest: UserRegisterAppStoreTransactionRequest) : ApiResponse<Unit?> {
+        val localVariableConfig = registerAppStoreTransactionRequestConfig(appUserId = appUserId, xApiKey = xApiKey, userRegisterAppStoreTransactionRequest = userRegisterAppStoreTransactionRequest)
+
+        return request<UserRegisterAppStoreTransactionRequest, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation registerAppStoreTransaction
+     *
+     * @param appUserId The app user id of the user.
+     * @param xApiKey The API key to authenticate with.
+     * @param userRegisterAppStoreTransactionRequest 
+     * @return RequestConfig
+     */
+    fun registerAppStoreTransactionRequestConfig(appUserId: kotlin.String, xApiKey: kotlin.String, userRegisterAppStoreTransactionRequest: UserRegisterAppStoreTransactionRequest) : RequestConfig<UserRegisterAppStoreTransactionRequest> {
+        val localVariableBody = userRegisterAppStoreTransactionRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        xApiKey.apply { localVariableHeaders["x-api-key"] = this.toString() }
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/users/{app_user_id}/transactions/app-store".replace("{"+"app_user_id"+"}", encodeURIComponent(appUserId.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * POST /users/{app_user_id}/transactions/google-play
+     * Register Google Play Transaction
+     * Registers the mapping between a user and their Google Play purchaseToken.
+     * @param appUserId The app user id of the user.
+     * @param xApiKey The API key to authenticate with.
+     * @param userRegisterGooglePlayTransactionRequest 
+     * @return void
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun registerGooglePlayTransaction(appUserId: kotlin.String, xApiKey: kotlin.String, userRegisterGooglePlayTransactionRequest: UserRegisterGooglePlayTransactionRequest) : Unit {
+        val localVarResponse = registerGooglePlayTransactionWithHttpInfo(appUserId = appUserId, xApiKey = xApiKey, userRegisterGooglePlayTransactionRequest = userRegisterGooglePlayTransactionRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> Unit
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * POST /users/{app_user_id}/transactions/google-play
+     * Register Google Play Transaction
+     * Registers the mapping between a user and their Google Play purchaseToken.
+     * @param appUserId The app user id of the user.
+     * @param xApiKey The API key to authenticate with.
+     * @param userRegisterGooglePlayTransactionRequest 
+     * @return ApiResponse<Unit?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun registerGooglePlayTransactionWithHttpInfo(appUserId: kotlin.String, xApiKey: kotlin.String, userRegisterGooglePlayTransactionRequest: UserRegisterGooglePlayTransactionRequest) : ApiResponse<Unit?> {
+        val localVariableConfig = registerGooglePlayTransactionRequestConfig(appUserId = appUserId, xApiKey = xApiKey, userRegisterGooglePlayTransactionRequest = userRegisterGooglePlayTransactionRequest)
+
+        return request<UserRegisterGooglePlayTransactionRequest, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation registerGooglePlayTransaction
+     *
+     * @param appUserId The app user id of the user.
+     * @param xApiKey The API key to authenticate with.
+     * @param userRegisterGooglePlayTransactionRequest 
+     * @return RequestConfig
+     */
+    fun registerGooglePlayTransactionRequestConfig(appUserId: kotlin.String, xApiKey: kotlin.String, userRegisterGooglePlayTransactionRequest: UserRegisterGooglePlayTransactionRequest) : RequestConfig<UserRegisterGooglePlayTransactionRequest> {
+        val localVariableBody = userRegisterGooglePlayTransactionRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        xApiKey.apply { localVariableHeaders["x-api-key"] = this.toString() }
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/users/{app_user_id}/transactions/google-play".replace("{"+"app_user_id"+"}", encodeURIComponent(appUserId.toString())),
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = false,

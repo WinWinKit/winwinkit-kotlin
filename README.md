@@ -43,6 +43,21 @@ dependencies {
 }
 ```
 
+## Usage
+
+`Referrals` is a thin, suspend-based wrapper around the REST API. Each call returns a `ReferralsResult<T>` — either `Success(data)` or `Failure(errors)`.
+
+```kotlin
+val referrals = Referrals(apiKey = "your-api-key")
+
+when (val result = referrals.fetchUser(appUserId = "user-1")) {
+    is ReferralsResult.Success -> println(result.data?.referralCode)
+    is ReferralsResult.Failure -> println(result.errors)
+}
+```
+
+`fetchUser` returns `Success(null)` when the user does not exist (HTTP 404); all other non-2xx responses return `Failure` with the parsed `ErrorObject` list.
+
 ## Requirements
 
 * Kotlin 1.7.21

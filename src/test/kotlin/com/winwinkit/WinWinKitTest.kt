@@ -11,15 +11,15 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 
-class ReferralsTest {
+class WinWinKitTest {
 
     private lateinit var server: MockWebServer
-    private lateinit var referrals: Referrals
+    private lateinit var winwinkit: WinWinKit
 
     @BeforeEach
     fun setUp() {
         server = MockWebServer().apply { start() }
-        referrals = Referrals(apiKey = "test-key", baseUrl = server.url("/").toString().trimEnd('/'))
+        winwinkit = WinWinKit(apiKey = "test-key", baseUrl = server.url("/").toString().trimEnd('/'))
     }
 
     @AfterEach
@@ -31,7 +31,7 @@ class ReferralsTest {
     fun `fetchUser returns Success with user on 200`() = runTest {
         server.enqueue(MockResponse().setResponseCode(200).setBody(USER_RESPONSE_JSON))
 
-        val result = referrals.fetchUser(appUserId = "user-1")
+        val result = winwinkit.fetchUser(appUserId = "user-1")
 
         assertTrue(result is ReferralsResult.Success)
         val user = (result as ReferralsResult.Success).data
@@ -48,7 +48,7 @@ class ReferralsTest {
     fun `fetchUser returns Success with null on 404`() = runTest {
         server.enqueue(MockResponse().setResponseCode(404).setBody(ERRORS_404_JSON))
 
-        val result = referrals.fetchUser(appUserId = "missing")
+        val result = winwinkit.fetchUser(appUserId = "missing")
 
         assertTrue(result is ReferralsResult.Success)
         assertNull((result as ReferralsResult.Success).data)
@@ -58,7 +58,7 @@ class ReferralsTest {
     fun `fetchUser returns Failure on 500 with parsed errors`() = runTest {
         server.enqueue(MockResponse().setResponseCode(500).setBody(ERRORS_500_JSON))
 
-        val result = referrals.fetchUser(appUserId = "user-1")
+        val result = winwinkit.fetchUser(appUserId = "user-1")
 
         assertTrue(result is ReferralsResult.Failure)
         val failure = result as ReferralsResult.Failure
@@ -71,7 +71,7 @@ class ReferralsTest {
     fun `createOrUpdateUser posts the request and returns the user`() = runTest {
         server.enqueue(MockResponse().setResponseCode(200).setBody(USER_RESPONSE_JSON))
 
-        val result = referrals.createOrUpdateUser(
+        val result = winwinkit.createOrUpdateUser(
             appUserId = "user-1",
             isPremium = true,
             stripeCustomerId = "cus_123",
@@ -93,7 +93,7 @@ class ReferralsTest {
     fun `claimCode returns user and rewardsGranted on success`() = runTest {
         server.enqueue(MockResponse().setResponseCode(200).setBody(CLAIM_CODE_RESPONSE_JSON))
 
-        val result = referrals.claimCode(appUserId = "user-1", code = "WELCOME")
+        val result = winwinkit.claimCode(appUserId = "user-1", code = "WELCOME")
 
         assertTrue(result is ReferralsResult.Success)
         val data = (result as ReferralsResult.Success).data
@@ -110,7 +110,7 @@ class ReferralsTest {
     fun `claimCode returns Failure with errors on 400`() = runTest {
         server.enqueue(MockResponse().setResponseCode(400).setBody(ERRORS_400_JSON))
 
-        val result = referrals.claimCode(appUserId = "user-1", code = "BAD")
+        val result = winwinkit.claimCode(appUserId = "user-1", code = "BAD")
 
         assertTrue(result is ReferralsResult.Failure)
         val failure = result as ReferralsResult.Failure
@@ -122,7 +122,7 @@ class ReferralsTest {
     fun `registerGooglePlayTransaction posts purchase token`() = runTest {
         server.enqueue(MockResponse().setResponseCode(204))
 
-        val result = referrals.registerGooglePlayTransaction(
+        val result = winwinkit.registerGooglePlayTransaction(
             appUserId = "user-1",
             purchaseToken = "token-xyz",
             obfuscatedExternalAccountId = "acct-1",
@@ -142,7 +142,7 @@ class ReferralsTest {
     fun `registerAppStoreTransaction posts original transaction id`() = runTest {
         server.enqueue(MockResponse().setResponseCode(204))
 
-        val result = referrals.registerAppStoreTransaction(
+        val result = winwinkit.registerAppStoreTransaction(
             appUserId = "user-1",
             originalTransactionId = "txn-1",
         )
@@ -159,7 +159,7 @@ class ReferralsTest {
     fun `Failure contains empty errors when body is not parseable`() = runTest {
         server.enqueue(MockResponse().setResponseCode(500).setBody("<html>oops</html>"))
 
-        val result = referrals.fetchUser(appUserId = "user-1")
+        val result = winwinkit.fetchUser(appUserId = "user-1")
 
         assertTrue(result is ReferralsResult.Failure)
         assertTrue((result as ReferralsResult.Failure).errors.isEmpty())

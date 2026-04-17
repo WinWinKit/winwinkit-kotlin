@@ -27,7 +27,7 @@ import kotlinx.coroutines.withContext
 /**
  * WinWinKit client. A thin wrapper around the REST API.
  */
-class Referrals(
+class WinWinKit(
     private val apiKey: String,
     baseUrl: String = DEFAULT_BASE_URL,
 ) {

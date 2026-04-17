@@ -45,14 +45,14 @@ dependencies {
 
 ## Usage
 
-`WinWinKit` is a thin, suspend-based wrapper around the REST API. Each call returns a `ReferralsResult<T>` — either `Success(data)` or `Failure(errors)`.
+`WinWinKit` is a thin, suspend-based wrapper around the REST API. Each call returns a `WinWinKitResult<T>` — either `Success(data)` or `Failure(errors)`.
 
 ```kotlin
 val winwinkit = WinWinKit(apiKey = "your-api-key")
 
 when (val result = winwinkit.fetchUser(appUserId = "user-1")) {
-    is ReferralsResult.Success -> println(result.data?.referralCode)
-    is ReferralsResult.Failure -> println(result.errors)
+    is WinWinKitResult.Success -> println(result.data?.referralCode)
+    is WinWinKitResult.Failure -> println(result.errors)
 }
 ```
 

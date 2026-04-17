@@ -34,7 +34,7 @@ class WinWinKit(
     private val claimActionsApi = ClaimActionsApi(baseUrl)
     private val rewardsActionsApi = RewardsActionsApi(baseUrl)
 
-    suspend fun fetchUser(appUserId: String): WinWinKitResult<User?> = call(treat404AsNull = true) {
+    suspend fun fetchUser(appUserId: String): ApiResult<User?> = call(treat404AsNull = true) {
         usersApi.getUser(appUserId, apiKey).data.user
     }
 
@@ -45,7 +45,7 @@ class WinWinKit(
         firstSeenAt: OffsetDateTime? = null,
         metadata: Any? = null,
         stripeCustomerId: String? = null,
-    ): WinWinKitResult<User> = call {
+    ): ApiResult<User> = call {
         val request = UserCreateRequest(
             appUserId = appUserId,
             isTrial = isTrial,
@@ -60,7 +60,7 @@ class WinWinKit(
     suspend fun claimCode(
         appUserId: String,
         code: String,
-    ): WinWinKitResult<UserClaimCodeResponseData> = call {
+    ): ApiResult<UserClaimCodeResponseData> = call {
         claimActionsApi.claimCode(appUserId, apiKey, UserClaimCodeRequest(code)).data
     }
 
@@ -69,7 +69,7 @@ class WinWinKit(
         key: String,
         amount: Int,
         operationId: String? = null,
-    ): WinWinKitResult<UserWithdrawCreditsResponseData> = call {
+    ): ApiResult<UserWithdrawCreditsResponseData> = call {
         val request = UserWithdrawCreditsRequest(key = key, amount = amount, operationId = operationId)
         rewardsActionsApi.withdrawCredits(appUserId, apiKey, request).data
     }
@@ -78,7 +78,7 @@ class WinWinKit(
         appUserId: String,
         key: String,
         operationId: String? = null,
-    ): WinWinKitResult<UserGrantRewardResponseData> = call {
+    ): ApiResult<UserGrantRewardResponseData> = call {
         val request = UserGrantRewardRequest(key = key, operationId = operationId)
         rewardsActionsApi.grantReward(appUserId, apiKey, request).data
     }
@@ -87,7 +87,7 @@ class WinWinKit(
         appUserId: String,
         purchaseToken: String,
         obfuscatedExternalAccountId: String? = null,
-    ): WinWinKitResult<Unit> = call {
+    ): ApiResult<Unit> = call {
         val request = UserRegisterGooglePlayTransactionRequest(
             purchaseToken = purchaseToken,
             obfuscatedExternalAccountId = obfuscatedExternalAccountId,
@@ -98,18 +98,18 @@ class WinWinKit(
     private suspend inline fun <T> call(
         treat404AsNull: Boolean = false,
         crossinline block: () -> T,
-    ): WinWinKitResult<T> = withContext(Dispatchers.IO) {
+    ): ApiResult<T> = withContext(Dispatchers.IO) {
         try {
-            WinWinKitResult.Success(block())
+            ApiResult.Success(block())
         } catch (e: ClientException) {
             if (treat404AsNull && e.statusCode == 404) {
                 @Suppress("UNCHECKED_CAST")
-                WinWinKitResult.Success(null as T)
+                ApiResult.Success(null as T)
             } else {
-                WinWinKitResult.Failure(parseErrors(e))
+                ApiResult.Failure(parseErrors(e))
             }
         } catch (e: ServerException) {
-            WinWinKitResult.Failure(parseErrors(e))
+            ApiResult.Failure(parseErrors(e))
         }
     }
 

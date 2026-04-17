@@ -33,8 +33,8 @@ class WinWinKitTest {
 
         val result = winwinkit.fetchUser(appUserId = "user-1")
 
-        assertTrue(result is WinWinKitResult.Success)
-        val user = (result as WinWinKitResult.Success).data
+        assertTrue(result is ApiResult.Success)
+        val user = (result as ApiResult.Success).data
         assertNotNull(user)
         assertEquals("user-1", user!!.appUserId)
 
@@ -50,8 +50,8 @@ class WinWinKitTest {
 
         val result = winwinkit.fetchUser(appUserId = "missing")
 
-        assertTrue(result is WinWinKitResult.Success)
-        assertNull((result as WinWinKitResult.Success).data)
+        assertTrue(result is ApiResult.Success)
+        assertNull((result as ApiResult.Success).data)
     }
 
     @Test
@@ -60,8 +60,8 @@ class WinWinKitTest {
 
         val result = winwinkit.fetchUser(appUserId = "user-1")
 
-        assertTrue(result is WinWinKitResult.Failure)
-        val failure = result as WinWinKitResult.Failure
+        assertTrue(result is ApiResult.Failure)
+        val failure = result as ApiResult.Failure
         assertEquals(1, failure.errors.size)
         assertEquals(500, failure.errors.first().status)
         assertEquals("internal_error", failure.errors.first().code)
@@ -77,8 +77,8 @@ class WinWinKitTest {
             stripeCustomerId = "cus_123",
         )
 
-        assertTrue(result is WinWinKitResult.Success)
-        assertEquals("user-1", (result as WinWinKitResult.Success).data.appUserId)
+        assertTrue(result is ApiResult.Success)
+        assertEquals("user-1", (result as ApiResult.Success).data.appUserId)
 
         val request = server.takeRequest()
         assertEquals("POST", request.method)
@@ -95,8 +95,8 @@ class WinWinKitTest {
 
         val result = winwinkit.claimCode(appUserId = "user-1", code = "WELCOME")
 
-        assertTrue(result is WinWinKitResult.Success)
-        val data = (result as WinWinKitResult.Success).data
+        assertTrue(result is ApiResult.Success)
+        val data = (result as ApiResult.Success).data
         assertEquals("user-1", data.user.appUserId)
         assertNotNull(data.rewardsGranted)
 
@@ -112,8 +112,8 @@ class WinWinKitTest {
 
         val result = winwinkit.claimCode(appUserId = "user-1", code = "BAD")
 
-        assertTrue(result is WinWinKitResult.Failure)
-        val failure = result as WinWinKitResult.Failure
+        assertTrue(result is ApiResult.Failure)
+        val failure = result as ApiResult.Failure
         assertEquals(400, failure.errors.first().status)
         assertEquals("invalid_code", failure.errors.first().code)
     }
@@ -128,7 +128,7 @@ class WinWinKitTest {
             obfuscatedExternalAccountId = "acct-1",
         )
 
-        assertTrue(result is WinWinKitResult.Success)
+        assertTrue(result is ApiResult.Success)
 
         val request = server.takeRequest()
         assertEquals("POST", request.method)
@@ -144,8 +144,8 @@ class WinWinKitTest {
 
         val result = winwinkit.fetchUser(appUserId = "user-1")
 
-        assertTrue(result is WinWinKitResult.Failure)
-        assertTrue((result as WinWinKitResult.Failure).errors.isEmpty())
+        assertTrue(result is ApiResult.Failure)
+        assertTrue((result as ApiResult.Failure).errors.isEmpty())
     }
 
     private companion object {

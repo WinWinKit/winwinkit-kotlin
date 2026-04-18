@@ -30,7 +30,7 @@ gradle wrapper
 ./openapi.generate
 ```
 
-`./openapi.generate` calls `openapi-generator generate -i https://api.winwinkit.com/openapi-yaml -g kotlin -o . --additional-properties=groupId=com.winwinkit.sdk,packageName=com.winwinkit.client`. It overwrites `src/`, `docs/`, `README.md`, and `build.gradle` — any manual edits to those files will be lost on the next generation. Use `.openapi-generator-ignore` to protect files that must survive regeneration.
+`./openapi.generate` calls `openapi-generator generate -i https://api.winwinkit.com/openapi-yaml -g kotlin -o . --additional-properties=groupId=com.winwinkit.sdk,packageName=com.winwinkit.client`. It overwrites generated outputs such as `src/`, `docs/`, and `build.gradle` — any manual edits to those files will be lost on the next generation. `README.md` and `.openapi-generator/FILES` are intentionally excluded from generation via `.openapi-generator-ignore`, so regeneration will not update them; if the spec adds or renames endpoints/models, re-sync those two files by hand. Use `.openapi-generator-ignore` to protect other files that must survive regeneration.
 
 Tests use kotlintest (`io.kotlintest:kotlintest-runner-junit5:3.4.2`) on the JUnit 5 platform. Generated test stubs have their `apiInstance` construction commented out — they compile but exercise nothing until the stubs are filled in.
 
@@ -38,7 +38,7 @@ Tests use kotlintest (`io.kotlintest:kotlintest-runner-junit5:3.4.2`) on the JUn
 
 Package root: `com.winwinkit.client`.
 
-- `apis/` — one class per tag in the OpenAPI spec (`AppStoreApi`, `ClaimActionsApi`, `RewardsActionsApi`, `UsersApi`). Each extends `ApiClient` and exposes one method per operation. The set of endpoints is listed in `README.md`.
+- `apis/` — generated API classes, typically one class per tag in the OpenAPI spec. Each extends `ApiClient` and exposes one method per operation. The set of currently shipped endpoints is listed in `README.md`.
 - `models/` — generated data classes for every schema in the spec (~100+ types, heavy use of sealed hierarchies for polymorphic Reward variants: Basic / Credit / OfferCode / GooglePlayPromoCode / RevenueCatEntitlement / RevenueCatOffering, each with Active/Expired and Activation/Deactivation sub-types).
 - `infrastructure/` — the runtime the generated code sits on top of:
   - `ApiClient.kt` — base class wrapping OkHttp. Holds static auth state (`apiKey`, `apiKeyPrefix`, `username`, `password`, `accessToken`) and the shared `OkHttpClient`. Intentionally low method count to keep the Android method budget down (see README "Features/Implementation Notes").

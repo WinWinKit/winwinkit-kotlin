@@ -44,5 +44,11 @@ docs/OfferCodeResponse.md
 docs/OfferCodeResponseData.md
 # README.md and the generator FILES index have been hand-pruned to drop AppStore
 # entries; skip them so regeneration does not reintroduce the removed types.
+#
+# Drift risk: because these two files are now frozen against the spec, new or
+# renamed endpoints/models on the API side will NOT automatically appear in the
+# endpoint table in README.md or in .openapi-generator/FILES. Whenever the
+# OpenAPI spec changes in a way that affects the list of shipped APIs/models,
+# update both files manually (keeping the AppStore entries out).
 README.md
 .openapi-generator/FILES

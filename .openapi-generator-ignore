@@ -21,3 +21,28 @@
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
+
+# AppStoreApi and its response models are intentionally removed from the SDK;
+# prevent regeneration from bringing them back.
+src/main/kotlin/com/winwinkit/client/apis/AppStoreApi.kt
+src/test/kotlin/com/winwinkit/client/apis/AppStoreApiTest.kt
+src/main/kotlin/com/winwinkit/client/models/OfferCodeResponse.kt
+src/main/kotlin/com/winwinkit/client/models/OfferCodeResponseData.kt
+src/main/kotlin/com/winwinkit/client/models/AppStoreOfferCode.kt
+src/main/kotlin/com/winwinkit/client/models/AppStorePrice.kt
+src/main/kotlin/com/winwinkit/client/models/AppStoreSubscription.kt
+src/test/kotlin/com/winwinkit/client/models/OfferCodeResponseTest.kt
+src/test/kotlin/com/winwinkit/client/models/OfferCodeResponseDataTest.kt
+src/test/kotlin/com/winwinkit/client/models/AppStoreOfferCodeTest.kt
+src/test/kotlin/com/winwinkit/client/models/AppStorePriceTest.kt
+src/test/kotlin/com/winwinkit/client/models/AppStoreSubscriptionTest.kt
+docs/AppStoreApi.md
+docs/AppStoreOfferCode.md
+docs/AppStorePrice.md
+docs/AppStoreSubscription.md
+docs/OfferCodeResponse.md
+docs/OfferCodeResponseData.md
+# README.md and the generator FILES index have been hand-pruned to drop AppStore
+# entries; skip them so regeneration does not reintroduce the removed types.
+README.md
+.openapi-generator/FILES

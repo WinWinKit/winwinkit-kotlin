@@ -27,7 +27,6 @@ All URIs are relative to *https://api.winwinkit.com*
 
 | Class | Method | HTTP request | Description |
 | ------------ | ------------- | ------------- | ------------- |
-| *AppStoreApi* | [**getOfferCode**](docs/AppStoreApi.md#getoffercode) | **GET** /app-store/offer-codes/{offer_code_id} | Get Offer Code |
 | *ClaimActionsApi* | [**claimCode**](docs/ClaimActionsApi.md#claimcode) | **POST** /users/{app_user_id}/claim-code | Claim Code |
 | *RewardsActionsApi* | [**grantReward**](docs/RewardsActionsApi.md#grantreward) | **POST** /users/{app_user_id}/rewards/grant | Grant a Reward |
 | *RewardsActionsApi* | [**withdrawCredits**](docs/RewardsActionsApi.md#withdrawcredits) | **POST** /users/{app_user_id}/rewards/withdraw-credits | Withdraw Credits |
@@ -38,17 +37,12 @@ All URIs are relative to *https://api.winwinkit.com*
 <a id="documentation-for-models"></a>
 ## Documentation for Models
 
- - [com.winwinkit.client.models.AppStoreOfferCode](docs/AppStoreOfferCode.md)
- - [com.winwinkit.client.models.AppStorePrice](docs/AppStorePrice.md)
- - [com.winwinkit.client.models.AppStoreSubscription](docs/AppStoreSubscription.md)
  - [com.winwinkit.client.models.BasicReward](docs/BasicReward.md)
  - [com.winwinkit.client.models.CreditReward](docs/CreditReward.md)
  - [com.winwinkit.client.models.ErrorObject](docs/ErrorObject.md)
  - [com.winwinkit.client.models.ErrorsResponse](docs/ErrorsResponse.md)
  - [com.winwinkit.client.models.GooglePlayPromoCodeReward](docs/GooglePlayPromoCodeReward.md)
  - [com.winwinkit.client.models.GooglePlayPromoCodeValue](docs/GooglePlayPromoCodeValue.md)
- - [com.winwinkit.client.models.OfferCodeResponse](docs/OfferCodeResponse.md)
- - [com.winwinkit.client.models.OfferCodeResponseData](docs/OfferCodeResponseData.md)
  - [com.winwinkit.client.models.OfferCodeReward](docs/OfferCodeReward.md)
  - [com.winwinkit.client.models.OfferCodeValue](docs/OfferCodeValue.md)
  - [com.winwinkit.client.models.ReferralProgram](docs/ReferralProgram.md)

@@ -16,6 +16,7 @@ import com.winwinkit.client.models.UserClaimCodeResponseData
 import com.winwinkit.client.models.UserCreateRequest
 import com.winwinkit.client.models.UserGrantRewardRequest
 import com.winwinkit.client.models.UserGrantRewardResponseData
+import com.winwinkit.client.models.UserRegisterAppStoreTransactionRequest
 import com.winwinkit.client.models.UserRegisterGooglePlayTransactionRequest
 import com.winwinkit.client.models.UserWithdrawCreditsRequest
 import com.winwinkit.client.models.UserWithdrawCreditsResponseData
@@ -81,6 +82,18 @@ class WinWinKit(
     ): ApiResult<UserGrantRewardResponseData> = call {
         val request = UserGrantRewardRequest(key = key, operationId = operationId)
         rewardsActionsApi.grantReward(appUserId, apiKey, request).data
+    }
+
+    suspend fun registerAppStoreTransaction(
+        appUserId: String,
+        originalTransactionId: String,
+        appAccountToken: String? = null,
+    ): ApiResult<Unit> = call {
+        val request = UserRegisterAppStoreTransactionRequest(
+            originalTransactionId = originalTransactionId,
+            appAccountToken = appAccountToken,
+        )
+        usersApi.registerAppStoreTransaction(appUserId, apiKey, request)
     }
 
     suspend fun registerGooglePlayTransaction(

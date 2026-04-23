@@ -119,6 +119,23 @@ class WinWinKitTest {
     }
 
     @Test
+    fun `registerAppStoreTransaction posts original transaction id`() = runTest {
+        server.enqueue(MockResponse().setResponseCode(204))
+
+        val result = winwinkit.registerAppStoreTransaction(
+            appUserId = "user-1",
+            originalTransactionId = "txn-1",
+        )
+
+        assertTrue(result is ApiResult.Success)
+
+        val request = server.takeRequest()
+        assertEquals("POST", request.method)
+        assertEquals("/users/user-1/transactions/app-store", request.path)
+        assertTrue(request.body.readUtf8().contains("\"original_transaction_id\":\"txn-1\""))
+    }
+
+    @Test
     fun `registerGooglePlayTransaction posts purchase token`() = runTest {
         server.enqueue(MockResponse().setResponseCode(204))
 

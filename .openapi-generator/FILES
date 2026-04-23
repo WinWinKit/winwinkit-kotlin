@@ -94,6 +94,8 @@ docs/UserGrantRewardResponseData.md
 docs/UserOfferCodeRewardActive.md
 docs/UserOfferCodeRewardExpired.md
 docs/UserReferredBy.md
+docs/UserRegisterAppStoreTransactionRequest.md
+docs/UserRegisterGooglePlayTransactionRequest.md
 docs/UserResponse.md
 docs/UserResponseData.md
 docs/UserRevenueCatEntitlementRewardActive.md
@@ -227,6 +229,8 @@ src/main/kotlin/com/winwinkit/client/models/UserGrantRewardResponseData.kt
 src/main/kotlin/com/winwinkit/client/models/UserOfferCodeRewardActive.kt
 src/main/kotlin/com/winwinkit/client/models/UserOfferCodeRewardExpired.kt
 src/main/kotlin/com/winwinkit/client/models/UserReferredBy.kt
+src/main/kotlin/com/winwinkit/client/models/UserRegisterAppStoreTransactionRequest.kt
+src/main/kotlin/com/winwinkit/client/models/UserRegisterGooglePlayTransactionRequest.kt
 src/main/kotlin/com/winwinkit/client/models/UserResponse.kt
 src/main/kotlin/com/winwinkit/client/models/UserResponseData.kt
 src/main/kotlin/com/winwinkit/client/models/UserRevenueCatEntitlementRewardActive.kt
@@ -242,3 +246,5 @@ src/main/kotlin/com/winwinkit/client/models/UserWithdrawCreditsRequest.kt
 src/main/kotlin/com/winwinkit/client/models/UserWithdrawCreditsResponse.kt
 src/main/kotlin/com/winwinkit/client/models/UserWithdrawCreditsResponseData.kt
 src/main/kotlin/com/winwinkit/client/models/UserWithdrawCreditsResult.kt
+src/test/kotlin/com/winwinkit/client/models/UserRegisterAppStoreTransactionRequestTest.kt
+src/test/kotlin/com/winwinkit/client/models/UserRegisterGooglePlayTransactionRequestTest.kt

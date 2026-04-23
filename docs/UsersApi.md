@@ -6,6 +6,8 @@ All URIs are relative to *https://api.winwinkit.com*
 | ------------- | ------------- | ------------- |
 | [**createOrUpdateUser**](UsersApi.md#createOrUpdateUser) | **POST** /users | Create or Update User |
 | [**getUser**](UsersApi.md#getUser) | **GET** /users/{app_user_id} | Get User |
+| [**registerAppStoreTransaction**](UsersApi.md#registerAppStoreTransaction) | **POST** /users/{app_user_id}/transactions/app-store | Register App Store Transaction |
+| [**registerGooglePlayTransaction**](UsersApi.md#registerGooglePlayTransaction) | **POST** /users/{app_user_id}/transactions/google-play | Register Google Play Transaction |
 
 
 <a id="createOrUpdateUser"></a>
@@ -102,5 +104,103 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a id="registerAppStoreTransaction"></a>
+# **registerAppStoreTransaction**
+> registerAppStoreTransaction(appUserId, xApiKey, userRegisterAppStoreTransactionRequest)
+
+Register App Store Transaction
+
+Registers the mapping between a user and their Apple originalTransactionId.
+
+### Example
+```kotlin
+// Import classes:
+//import com.winwinkit.client.infrastructure.*
+//import com.winwinkit.client.models.*
+
+val apiInstance = UsersApi()
+val appUserId : kotlin.String = appUserId_example // kotlin.String | The app user id of the user.
+val xApiKey : kotlin.String = xApiKey_example // kotlin.String | The API key to authenticate with.
+val userRegisterAppStoreTransactionRequest : UserRegisterAppStoreTransactionRequest =  // UserRegisterAppStoreTransactionRequest | 
+try {
+    apiInstance.registerAppStoreTransaction(appUserId, xApiKey, userRegisterAppStoreTransactionRequest)
+} catch (e: ClientException) {
+    println("4xx response calling UsersApi#registerAppStoreTransaction")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling UsersApi#registerAppStoreTransaction")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **appUserId** | **kotlin.String**| The app user id of the user. | |
+| **xApiKey** | **kotlin.String**| The API key to authenticate with. | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **userRegisterAppStoreTransactionRequest** | [**UserRegisterAppStoreTransactionRequest**](UserRegisterAppStoreTransactionRequest.md)|  | |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a id="registerGooglePlayTransaction"></a>
+# **registerGooglePlayTransaction**
+> registerGooglePlayTransaction(appUserId, xApiKey, userRegisterGooglePlayTransactionRequest)
+
+Register Google Play Transaction
+
+Registers the mapping between a user and their Google Play purchaseToken.
+
+### Example
+```kotlin
+// Import classes:
+//import com.winwinkit.client.infrastructure.*
+//import com.winwinkit.client.models.*
+
+val apiInstance = UsersApi()
+val appUserId : kotlin.String = appUserId_example // kotlin.String | The app user id of the user.
+val xApiKey : kotlin.String = xApiKey_example // kotlin.String | The API key to authenticate with.
+val userRegisterGooglePlayTransactionRequest : UserRegisterGooglePlayTransactionRequest =  // UserRegisterGooglePlayTransactionRequest | 
+try {
+    apiInstance.registerGooglePlayTransaction(appUserId, xApiKey, userRegisterGooglePlayTransactionRequest)
+} catch (e: ClientException) {
+    println("4xx response calling UsersApi#registerGooglePlayTransaction")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling UsersApi#registerGooglePlayTransaction")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+| **appUserId** | **kotlin.String**| The app user id of the user. | |
+| **xApiKey** | **kotlin.String**| The API key to authenticate with. | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **userRegisterGooglePlayTransactionRequest** | [**UserRegisterGooglePlayTransactionRequest**](UserRegisterGooglePlayTransactionRequest.md)|  | |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 

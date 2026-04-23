@@ -21,6 +21,7 @@ import com.winwinkit.client.models.UserRegisterGooglePlayTransactionRequest
 import com.winwinkit.client.models.UserWithdrawCreditsRequest
 import com.winwinkit.client.models.UserWithdrawCreditsResponseData
 import java.time.OffsetDateTime
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -30,6 +31,13 @@ import kotlinx.coroutines.withContext
  * Set [appUserId] after construction (e.g. on login) before calling any method.
  * Clear it to `null` on logout. Calling any method while [appUserId] is `null`
  * throws [IllegalStateException].
+ *
+ * Every method returns one of:
+ * - [ApiResult.Success] on a 2xx response
+ * - [ApiResult.Failure] on a 4xx or 5xx response, with the parsed server errors
+ * - [ApiResult.Exception] on an unexpected throwable (network I/O failure,
+ *   JSON parse error on a 2xx body, etc.). [CancellationException] is not
+ *   caught and propagates per coroutine conventions.
  */
 class WinWinKit(
     private val apiKey: String,
@@ -127,6 +135,12 @@ class WinWinKit(
             }
         } catch (e: ServerException) {
             ApiResult.Failure(parseErrors(e))
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: IllegalStateException) {
+            throw e
+        } catch (e: Exception) {
+            ApiResult.Exception(e)
         }
     }
 

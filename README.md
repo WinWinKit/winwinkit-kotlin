@@ -45,15 +45,22 @@ dependencies {
 
 ## Usage
 
-`WinWinKit` is a thin, suspend-based wrapper around the REST API. Each call returns a `ApiResult<T>` — either `Success(data)` or `Failure(errors)`.
+`WinWinKit` is a thin, suspend-based wrapper around the REST API. Each call returns an `ApiResult<T>` — one of `Success(data)`, `Failure(errors)` for 4xx/5xx API responses, or `Exception(cause)` for network I/O or parse failures.
 
 ```kotlin
 val winwinkit = WinWinKit(apiKey = "your-api-key")
 
-when (val result = winwinkit.fetchUser(appUserId = "user-1")) {
+// Set the app user id once, typically on login.
+winwinkit.appUserId = "user-1"
+
+when (val result = winwinkit.fetchUser()) {
     is ApiResult.Success -> println(result.data?.referralCode)
     is ApiResult.Failure -> println(result.errors)
+    is ApiResult.Exception -> println("unexpected: ${result.cause}")
 }
+
+// Clear on logout.
+winwinkit.appUserId = null
 ```
 
 `fetchUser` returns `Success(null)` when the user does not exist (HTTP 404); all other non-2xx responses return `Failure` with the parsed `ErrorObject` list.

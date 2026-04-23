@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 
 class WinWinKitTest {
@@ -166,12 +165,26 @@ class WinWinKitTest {
     }
 
     @Test
+    fun `Exception wraps JSON parse failure on 2xx body`() = runTest {
+        server.enqueue(MockResponse().setResponseCode(200).setBody("not json"))
+
+        val result = winwinkit.fetchUser()
+
+        assertTrue(result is ApiResult.Exception)
+        assertNotNull((result as ApiResult.Exception).cause)
+    }
+
+    @Test
     fun `calling a method before appUserId is set throws IllegalStateException`() = runTest {
         winwinkit.appUserId = null
 
-        assertThrows(IllegalStateException::class.java) {
-            runTest { winwinkit.fetchUser() }
+        val thrown: Throwable = try {
+            winwinkit.fetchUser()
+            throw AssertionError("expected IllegalStateException, but fetchUser() did not throw")
+        } catch (e: IllegalStateException) {
+            e
         }
+        assertTrue(thrown.message.orEmpty().contains("appUserId"))
     }
 
     private companion object {

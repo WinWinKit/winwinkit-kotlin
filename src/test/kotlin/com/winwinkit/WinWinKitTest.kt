@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 
 class WinWinKitTest {
@@ -20,6 +21,7 @@ class WinWinKitTest {
     fun setUp() {
         server = MockWebServer().apply { start() }
         winwinkit = WinWinKit(apiKey = "test-key", baseUrl = server.url("/").toString().trimEnd('/'))
+        winwinkit.appUserId = "user-1"
     }
 
     @AfterEach
@@ -31,7 +33,7 @@ class WinWinKitTest {
     fun `fetchUser returns Success with user on 200`() = runTest {
         server.enqueue(MockResponse().setResponseCode(200).setBody(USER_RESPONSE_JSON))
 
-        val result = winwinkit.fetchUser(appUserId = "user-1")
+        val result = winwinkit.fetchUser()
 
         assertTrue(result is ApiResult.Success)
         val user = (result as ApiResult.Success).data
@@ -47,8 +49,9 @@ class WinWinKitTest {
     @Test
     fun `fetchUser returns Success with null on 404`() = runTest {
         server.enqueue(MockResponse().setResponseCode(404).setBody(ERRORS_404_JSON))
+        winwinkit.appUserId = "missing"
 
-        val result = winwinkit.fetchUser(appUserId = "missing")
+        val result = winwinkit.fetchUser()
 
         assertTrue(result is ApiResult.Success)
         assertNull((result as ApiResult.Success).data)
@@ -58,7 +61,7 @@ class WinWinKitTest {
     fun `fetchUser returns Failure on 500 with parsed errors`() = runTest {
         server.enqueue(MockResponse().setResponseCode(500).setBody(ERRORS_500_JSON))
 
-        val result = winwinkit.fetchUser(appUserId = "user-1")
+        val result = winwinkit.fetchUser()
 
         assertTrue(result is ApiResult.Failure)
         val failure = result as ApiResult.Failure
@@ -72,7 +75,6 @@ class WinWinKitTest {
         server.enqueue(MockResponse().setResponseCode(200).setBody(USER_RESPONSE_JSON))
 
         val result = winwinkit.createOrUpdateUser(
-            appUserId = "user-1",
             isPremium = true,
             stripeCustomerId = "cus_123",
         )
@@ -93,7 +95,7 @@ class WinWinKitTest {
     fun `claimCode returns user and rewardsGranted on success`() = runTest {
         server.enqueue(MockResponse().setResponseCode(200).setBody(CLAIM_CODE_RESPONSE_JSON))
 
-        val result = winwinkit.claimCode(appUserId = "user-1", code = "WELCOME")
+        val result = winwinkit.claimCode(code = "WELCOME")
 
         assertTrue(result is ApiResult.Success)
         val data = (result as ApiResult.Success).data
@@ -110,7 +112,7 @@ class WinWinKitTest {
     fun `claimCode returns Failure with errors on 400`() = runTest {
         server.enqueue(MockResponse().setResponseCode(400).setBody(ERRORS_400_JSON))
 
-        val result = winwinkit.claimCode(appUserId = "user-1", code = "BAD")
+        val result = winwinkit.claimCode(code = "BAD")
 
         assertTrue(result is ApiResult.Failure)
         val failure = result as ApiResult.Failure
@@ -123,7 +125,6 @@ class WinWinKitTest {
         server.enqueue(MockResponse().setResponseCode(204))
 
         val result = winwinkit.registerAppStoreTransaction(
-            appUserId = "user-1",
             originalTransactionId = "txn-1",
         )
 
@@ -140,7 +141,6 @@ class WinWinKitTest {
         server.enqueue(MockResponse().setResponseCode(204))
 
         val result = winwinkit.registerGooglePlayTransaction(
-            appUserId = "user-1",
             purchaseToken = "token-xyz",
             obfuscatedExternalAccountId = "acct-1",
         )
@@ -159,10 +159,19 @@ class WinWinKitTest {
     fun `Failure contains empty errors when body is not parseable`() = runTest {
         server.enqueue(MockResponse().setResponseCode(500).setBody("<html>oops</html>"))
 
-        val result = winwinkit.fetchUser(appUserId = "user-1")
+        val result = winwinkit.fetchUser()
 
         assertTrue(result is ApiResult.Failure)
         assertTrue((result as ApiResult.Failure).errors.isEmpty())
+    }
+
+    @Test
+    fun `calling a method before appUserId is set throws IllegalStateException`() = runTest {
+        winwinkit.appUserId = null
+
+        assertThrows(IllegalStateException::class.java) {
+            runTest { winwinkit.fetchUser() }
+        }
     }
 
     private companion object {

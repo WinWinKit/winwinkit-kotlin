@@ -26,21 +26,27 @@ import kotlinx.coroutines.withContext
 
 /**
  * WinWinKit client. A thin wrapper around the REST API.
+ *
+ * Set [appUserId] after construction (e.g. on login) before calling any method.
+ * Clear it to `null` on logout. Calling any method while [appUserId] is `null`
+ * throws [IllegalStateException].
  */
 class WinWinKit(
     private val apiKey: String,
     baseUrl: String = DEFAULT_BASE_URL,
 ) {
+    @Volatile
+    var appUserId: String? = null
+
     private val usersApi = UsersApi(baseUrl)
     private val claimActionsApi = ClaimActionsApi(baseUrl)
     private val rewardsActionsApi = RewardsActionsApi(baseUrl)
 
-    suspend fun fetchUser(appUserId: String): ApiResult<User?> = call(treat404AsNull = true) {
-        usersApi.getUser(appUserId, apiKey).data.user
+    suspend fun fetchUser(): ApiResult<User?> = call(treat404AsNull = true) {
+        usersApi.getUser(requireAppUserId(), apiKey).data.user
     }
 
     suspend fun createOrUpdateUser(
-        appUserId: String,
         isPremium: Boolean? = null,
         isTrial: Boolean? = null,
         firstSeenAt: OffsetDateTime? = null,
@@ -48,7 +54,7 @@ class WinWinKit(
         stripeCustomerId: String? = null,
     ): ApiResult<User> = call {
         val request = UserCreateRequest(
-            appUserId = appUserId,
+            appUserId = requireAppUserId(),
             isTrial = isTrial,
             isPremium = isPremium,
             firstSeenAt = firstSeenAt,
@@ -59,33 +65,29 @@ class WinWinKit(
     }
 
     suspend fun claimCode(
-        appUserId: String,
         code: String,
     ): ApiResult<UserClaimCodeResponseData> = call {
-        claimActionsApi.claimCode(appUserId, apiKey, UserClaimCodeRequest(code)).data
+        claimActionsApi.claimCode(requireAppUserId(), apiKey, UserClaimCodeRequest(code)).data
     }
 
     suspend fun withdrawCredits(
-        appUserId: String,
         key: String,
         amount: Int,
         operationId: String? = null,
     ): ApiResult<UserWithdrawCreditsResponseData> = call {
         val request = UserWithdrawCreditsRequest(key = key, amount = amount, operationId = operationId)
-        rewardsActionsApi.withdrawCredits(appUserId, apiKey, request).data
+        rewardsActionsApi.withdrawCredits(requireAppUserId(), apiKey, request).data
     }
 
     suspend fun grantReward(
-        appUserId: String,
         key: String,
         operationId: String? = null,
     ): ApiResult<UserGrantRewardResponseData> = call {
         val request = UserGrantRewardRequest(key = key, operationId = operationId)
-        rewardsActionsApi.grantReward(appUserId, apiKey, request).data
+        rewardsActionsApi.grantReward(requireAppUserId(), apiKey, request).data
     }
 
     suspend fun registerAppStoreTransaction(
-        appUserId: String,
         originalTransactionId: String,
         appAccountToken: String? = null,
     ): ApiResult<Unit> = call {
@@ -93,11 +95,10 @@ class WinWinKit(
             originalTransactionId = originalTransactionId,
             appAccountToken = appAccountToken,
         )
-        usersApi.registerAppStoreTransaction(appUserId, apiKey, request)
+        usersApi.registerAppStoreTransaction(requireAppUserId(), apiKey, request)
     }
 
     suspend fun registerGooglePlayTransaction(
-        appUserId: String,
         purchaseToken: String,
         obfuscatedExternalAccountId: String? = null,
     ): ApiResult<Unit> = call {
@@ -105,8 +106,11 @@ class WinWinKit(
             purchaseToken = purchaseToken,
             obfuscatedExternalAccountId = obfuscatedExternalAccountId,
         )
-        usersApi.registerGooglePlayTransaction(appUserId, apiKey, request)
+        usersApi.registerGooglePlayTransaction(requireAppUserId(), apiKey, request)
     }
+
+    private fun requireAppUserId(): String = appUserId
+        ?: error("WinWinKit.appUserId must be set before making API calls")
 
     private suspend inline fun <T> call(
         treat404AsNull: Boolean = false,

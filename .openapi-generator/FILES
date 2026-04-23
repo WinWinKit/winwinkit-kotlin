@@ -1,9 +1,5 @@
 README.md
 build.gradle
-docs/AppStoreApi.md
-docs/AppStoreOfferCode.md
-docs/AppStorePrice.md
-docs/AppStoreSubscription.md
 docs/BasicReward.md
 docs/ClaimActionsApi.md
 docs/CreditReward.md
@@ -11,8 +7,6 @@ docs/ErrorObject.md
 docs/ErrorsResponse.md
 docs/GooglePlayPromoCodeReward.md
 docs/GooglePlayPromoCodeValue.md
-docs/OfferCodeResponse.md
-docs/OfferCodeResponseData.md
 docs/OfferCodeReward.md
 docs/OfferCodeValue.md
 docs/ReferralProgram.md
@@ -123,7 +117,6 @@ gradle/wrapper/gradle-wrapper.properties
 gradlew
 gradlew.bat
 settings.gradle
-src/main/kotlin/com/winwinkit/client/apis/AppStoreApi.kt
 src/main/kotlin/com/winwinkit/client/apis/ClaimActionsApi.kt
 src/main/kotlin/com/winwinkit/client/apis/RewardsActionsApi.kt
 src/main/kotlin/com/winwinkit/client/apis/UsersApi.kt
@@ -144,17 +137,12 @@ src/main/kotlin/com/winwinkit/client/infrastructure/ResponseExtensions.kt
 src/main/kotlin/com/winwinkit/client/infrastructure/Serializer.kt
 src/main/kotlin/com/winwinkit/client/infrastructure/URIAdapter.kt
 src/main/kotlin/com/winwinkit/client/infrastructure/UUIDAdapter.kt
-src/main/kotlin/com/winwinkit/client/models/AppStoreOfferCode.kt
-src/main/kotlin/com/winwinkit/client/models/AppStorePrice.kt
-src/main/kotlin/com/winwinkit/client/models/AppStoreSubscription.kt
 src/main/kotlin/com/winwinkit/client/models/BasicReward.kt
 src/main/kotlin/com/winwinkit/client/models/CreditReward.kt
 src/main/kotlin/com/winwinkit/client/models/ErrorObject.kt
 src/main/kotlin/com/winwinkit/client/models/ErrorsResponse.kt
 src/main/kotlin/com/winwinkit/client/models/GooglePlayPromoCodeReward.kt
 src/main/kotlin/com/winwinkit/client/models/GooglePlayPromoCodeValue.kt
-src/main/kotlin/com/winwinkit/client/models/OfferCodeResponse.kt
-src/main/kotlin/com/winwinkit/client/models/OfferCodeResponseData.kt
 src/main/kotlin/com/winwinkit/client/models/OfferCodeReward.kt
 src/main/kotlin/com/winwinkit/client/models/OfferCodeValue.kt
 src/main/kotlin/com/winwinkit/client/models/ReferralProgram.kt

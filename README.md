@@ -67,8 +67,9 @@ winwinkit.appUserId = null
 
 ## Requirements
 
-* Kotlin 1.7.21
-* Gradle 7.5
+* JDK 21
+* Kotlin 1.9.23
+* Gradle 8.7
 
 ## Features/Implementation Notes
 

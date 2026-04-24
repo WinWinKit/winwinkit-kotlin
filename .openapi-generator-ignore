@@ -52,3 +52,10 @@ docs/OfferCodeResponseData.md
 # update both files manually (keeping the AppStore entries out).
 README.md
 .openapi-generator/FILES
+
+# build.gradle carries hand-added dependencies (kotlinx-coroutines, mockwebserver,
+# junit-jupiter), the project version, and the maven-publish block. Regeneration
+# would overwrite all of these, so freeze the file. When bumping dependencies
+# that the generator template would set (e.g. moshi/okhttp/kotlin versions),
+# edit build.gradle by hand.
+build.gradle

@@ -35,7 +35,7 @@ import com.squareup.moshi.JsonClass
  * @param revenuecatEntitlement The referral user RevenueCat entitlement rewards
  * @param revenuecatOffering The referral user RevenueCat offering rewards
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserRewardsExpired (
 

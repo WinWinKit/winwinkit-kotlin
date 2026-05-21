@@ -25,7 +25,7 @@ import com.squareup.moshi.JsonClass
  * @param originalTransactionId Apple's originalTransactionId from StoreKit.
  * @param appAccountToken StoreKit 2 appAccountToken UUID.
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserRegisterAppStoreTransactionRequest (
 

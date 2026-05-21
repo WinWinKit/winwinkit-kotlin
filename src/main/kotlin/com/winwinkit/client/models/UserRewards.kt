@@ -27,7 +27,7 @@ import com.squareup.moshi.JsonClass
  * @param active The referral user active rewards
  * @param expired The referral user expired rewards
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserRewards (
 

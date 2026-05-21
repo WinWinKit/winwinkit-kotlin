@@ -25,7 +25,7 @@ import com.squareup.moshi.JsonClass
  * @param `value` The promo code value
  * @param expiresAt The promo code value expiration date
  */
-
+@JsonClass(generateAdapter = true)
 
 data class GooglePlayPromoCodeValue (
 

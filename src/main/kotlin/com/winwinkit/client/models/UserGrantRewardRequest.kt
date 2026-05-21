@@ -25,7 +25,7 @@ import com.squareup.moshi.JsonClass
  * @param key The key of the reward to grant
  * @param operationId An optional operation id that ensures the same operation won't be performed again
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserGrantRewardRequest (
 

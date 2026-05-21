@@ -26,7 +26,7 @@ import com.squareup.moshi.JsonClass
  * @param link The offer code redeem link
  * @param expiresAt The offer code value expiration date
  */
-
+@JsonClass(generateAdapter = true)
 
 data class OfferCodeValue (
 

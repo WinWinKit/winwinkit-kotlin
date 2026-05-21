@@ -26,7 +26,7 @@ import com.squareup.moshi.JsonClass
  * @param duration The duration of the deactivation configuration
  * @param period The period of the deactivation configuration
  */
-
+@JsonClass(generateAdapter = true)
 
 data class ReferralProgramReceiverGooglePlayPromoCodeRewardIntervalDeactivation (
 

@@ -27,7 +27,7 @@ import com.squareup.moshi.JsonClass
  * @param rewardsGranted The rewards granted to the user.
  * @param user The updated user.
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserClaimCodeResponseData (
 

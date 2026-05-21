@@ -29,7 +29,7 @@ import com.squareup.moshi.JsonClass
  * @param createdAt The created at of the reward
  * @param updatedAt The updated at of the reward
  */
-
+@JsonClass(generateAdapter = true)
 
 data class BasicReward (
 

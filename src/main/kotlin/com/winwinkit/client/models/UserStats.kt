@@ -26,7 +26,7 @@ import com.squareup.moshi.JsonClass
  * @param conversions The number of users who have converted to premium.
  * @param churns The number of users who have churned.
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserStats (
 

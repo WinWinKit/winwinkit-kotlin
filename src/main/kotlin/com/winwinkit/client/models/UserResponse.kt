@@ -25,7 +25,7 @@ import com.squareup.moshi.JsonClass
  *
  * @param `data` 
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserResponse (
 

@@ -25,7 +25,7 @@ import com.squareup.moshi.JsonClass
  * @param purchaseToken Google Play's purchaseToken from the purchase flow.
  * @param obfuscatedExternalAccountId Set in BillingFlowParams.setObfuscatedAccountId() — used for better matching.
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserRegisterGooglePlayTransactionRequest (
 

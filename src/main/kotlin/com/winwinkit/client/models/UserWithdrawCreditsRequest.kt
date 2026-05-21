@@ -26,7 +26,7 @@ import com.squareup.moshi.JsonClass
  * @param amount The amount of credits to withdraw
  * @param operationId An optional operation id that ensures the same operation won't be performed again
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserWithdrawCreditsRequest (
 

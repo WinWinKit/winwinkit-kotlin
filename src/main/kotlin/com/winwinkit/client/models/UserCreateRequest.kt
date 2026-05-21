@@ -30,7 +30,7 @@ import com.squareup.moshi.JsonClass
  * @param metadata The metadata of the user.
  * @param stripeCustomerId The unique identifier of the user in Stripe.
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserCreateRequest (
 

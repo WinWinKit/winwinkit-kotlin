@@ -27,7 +27,7 @@ import com.squareup.moshi.JsonClass
  * @param sender The program sender rewards
  * @param `receiver` The program receiver rewards
  */
-
+@JsonClass(generateAdapter = true)
 
 data class ReferralProgramRewards (
 

@@ -27,7 +27,7 @@ import com.squareup.moshi.JsonClass
  * @param withdrawResult The withdraw result
  * @param user The user
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserWithdrawCreditsResponseData (
 

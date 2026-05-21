@@ -24,7 +24,7 @@ import com.squareup.moshi.JsonClass
  *
  * @param variant The variant of the activation configuration
  */
-
+@JsonClass(generateAdapter = true)
 
 data class ReferralProgramReceiverOfferCodeRewardActivation (
 

@@ -29,7 +29,7 @@ import com.squareup.moshi.JsonClass
  * @param activation The activation configuration
  * @param deactivation 
  */
-
+@JsonClass(generateAdapter = true)
 
 data class ReferralProgramReceiverRevenueCatEntitlementReward (
 

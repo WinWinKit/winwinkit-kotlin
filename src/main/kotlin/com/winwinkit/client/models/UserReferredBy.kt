@@ -25,7 +25,7 @@ import com.squareup.moshi.JsonClass
  * @param code The code claimed by the user. Can be null if the code's entity has been deleted.
  * @param type The type of the code. Can be one of \"affiliate\", \"promo\", or \"referral\".
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserReferredBy (
 

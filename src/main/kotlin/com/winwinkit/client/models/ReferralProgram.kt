@@ -33,7 +33,7 @@ import com.squareup.moshi.JsonClass
  * @param createdAt The program created at
  * @param updatedAt The program updated at
  */
-
+@JsonClass(generateAdapter = true)
 
 data class ReferralProgram (
 

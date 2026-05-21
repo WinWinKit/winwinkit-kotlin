@@ -26,7 +26,7 @@ import com.squareup.moshi.JsonClass
  * @param amount The amount of the activation configuration
  * @param limit The limit of the activation configuration
  */
-
+@JsonClass(generateAdapter = true)
 
 data class ReferralProgramSenderCreditRewardActivation (
 

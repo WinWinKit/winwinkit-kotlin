@@ -35,7 +35,7 @@ import com.squareup.moshi.JsonClass
  * @param revenuecatEntitlement The program RevenueCat entitlement rewards
  * @param revenuecatOffering The program RevenueCat offering rewards
  */
-
+@JsonClass(generateAdapter = true)
 
 data class ReferralProgramReceiverRewards (
 

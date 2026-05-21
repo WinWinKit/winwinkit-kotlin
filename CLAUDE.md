@@ -30,7 +30,7 @@ gradle wrapper
 ./openapi.generate
 ```
 
-`./openapi.generate` calls `openapi-generator generate -i https://api.winwinkit.com/openapi-yaml -g kotlin -o . --additional-properties=groupId=com.winwinkit.sdk,packageName=com.winwinkit.client`. It overwrites generated outputs such as `src/`, `docs/`, and `build.gradle` — any manual edits to those files will be lost on the next generation. `README.md` and `.openapi-generator/FILES` are intentionally excluded from generation via `.openapi-generator-ignore`, so regeneration will not update them; if the spec adds or renames endpoints/models, re-sync those two files by hand. Use `.openapi-generator-ignore` to protect other files that must survive regeneration.
+`./openapi.generate` calls `openapi-generator generate -i https://api.winwinkit.com/openapi-yaml -g kotlin -o . --additional-properties=groupId=com.winwinkit.sdk,artifactId=winwinkit-kotlin,packageName=com.winwinkit.client,moshiCodeGen=true`. The `moshiCodeGen=true` flag makes the generator emit `@JsonClass(generateAdapter = true)` on every model and drop the reflective `KotlinJsonAdapterFactory` from `Serializer.kt`, so Moshi builds adapters at compile time via the `moshi-kotlin-codegen` KSP processor (wired into `build.gradle` by hand, since `build.gradle` is frozen by `.openapi-generator-ignore`). It overwrites generated outputs such as `src/` and `docs/` — any manual edits to those files will be lost on the next generation. `README.md` and `.openapi-generator/FILES` are intentionally excluded from generation via `.openapi-generator-ignore`, so regeneration will not update them; if the spec adds or renames endpoints/models, re-sync those two files by hand. Use `.openapi-generator-ignore` to protect other files that must survive regeneration.
 
 Tests use kotlintest (`io.kotlintest:kotlintest-runner-junit5:3.4.2`) on the JUnit 5 platform. Generated test stubs have their `apiInstance` construction commented out — they compile but exercise nothing until the stubs are filled in.
 
@@ -54,7 +54,7 @@ Hand-written; not produced by `./openapi.generate` (the generator writes only un
   - `Serializer.kt` + Moshi adapters (`BigDecimalAdapter`, `LocalDateAdapter`, `OffsetDateTimeAdapter`, `UUIDAdapter`, `URIAdapter`, `ByteArrayAdapter`, `BigIntegerAdapter`, `LocalDateTimeAdapter`) — JSON (de)serialization.
   - `ApiResponse.kt`, `ResponseExtensions.kt`, `Errors.kt`, `RequestConfig.kt`, `RequestMethod.kt`, `ApiAbstractions.kt`, `PartConfig.kt` — request/response plumbing and collection-format handling (csv, tsv, ssv, pipes).
 
-Dependencies (from `build.gradle`): Moshi 1.15.1 (+ `moshi-adapters`), OkHttp 4.12.0, Kotlin stdlib-jdk8 / reflect 1.9.23. Spotless uses `ktfmt`. Published as a Maven artifact (`group 'com.winwinkit.client'`, `version '0.2.0'`).
+Dependencies (from `build.gradle`): Moshi 1.15.1 (`moshi` + `moshi-adapters`, plus the `moshi-kotlin-codegen` KSP processor), OkHttp 4.12.0, Kotlin stdlib-jdk8 1.9.23. The build applies the KSP plugin (`com.google.devtools.ksp`) so Moshi generates JSON adapters at compile time — there is no `kotlin-reflect` dependency, and minified consumers need no SDK-specific ProGuard/R8 rules. Spotless uses `ktfmt`. Published as a Maven artifact (`group 'com.winwinkit.sdk'`, `version '0.4.0'`).
 
 ## Working with generated code
 

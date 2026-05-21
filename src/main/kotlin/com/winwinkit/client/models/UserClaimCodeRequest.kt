@@ -24,7 +24,7 @@ import com.squareup.moshi.JsonClass
  *
  * @param code The code to claim. Can be affiliate, promo or referral code.
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserClaimCodeRequest (
 

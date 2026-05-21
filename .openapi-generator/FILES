@@ -1,5 +1,3 @@
-README.md
-build.gradle
 docs/BasicReward.md
 docs/ClaimActionsApi.md
 docs/CreditReward.md
@@ -246,5 +244,3 @@ src/main/kotlin/com/winwinkit/client/models/UserWithdrawCreditsRequest.kt
 src/main/kotlin/com/winwinkit/client/models/UserWithdrawCreditsResponse.kt
 src/main/kotlin/com/winwinkit/client/models/UserWithdrawCreditsResponseData.kt
 src/main/kotlin/com/winwinkit/client/models/UserWithdrawCreditsResult.kt
-src/test/kotlin/com/winwinkit/client/models/UserRegisterAppStoreTransactionRequestTest.kt
-src/test/kotlin/com/winwinkit/client/models/UserRegisterGooglePlayTransactionRequestTest.kt

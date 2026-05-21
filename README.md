@@ -78,6 +78,25 @@ winwinkit.appUserId = null
 * Some Kotlin and Java types are fully qualified to avoid conflicts with types defined in OpenAPI definitions.
 * Implementation of ApiClient is intended to reduce method counts, specifically to benefit Android targets.
 
+## ProGuard / R8
+
+As of **0.4.0**, the SDK's model classes (`com.winwinkit.client.models`) are
+serialized with **compile-time generated Moshi adapters** (Moshi codegen via
+KSP). No reflection is involved, so minified release builds work **without any
+SDK-specific keep rules** — Moshi's own bundled R8 rules cover the generated
+adapters.
+
+If you are pinned to **0.3.1 or earlier**, models were serialized reflectively
+and minified release builds fail (e.g. `no property for required constructor
+parameter #0 code ... UserClaimCodeRequest`). Either upgrade to 0.4.0+, or add
+these keep rules:
+
+```proguard
+-keep class com.winwinkit.client.models.** { *; }
+-keep class kotlin.Metadata { *; }
+-keepclassmembers class kotlin.Metadata { *; }
+```
+
 <a id="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 

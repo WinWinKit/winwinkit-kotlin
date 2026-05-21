@@ -27,7 +27,7 @@ import com.squareup.moshi.JsonClass
  * @param creditsRequestedToWithdraw The amount of credits requested to withdraw
  * @param creditsWithdrawn The amount of credits withdrawn
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserWithdrawCreditsResult (
 

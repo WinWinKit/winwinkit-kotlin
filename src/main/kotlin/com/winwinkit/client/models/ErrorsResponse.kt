@@ -25,7 +25,7 @@ import com.squareup.moshi.JsonClass
  *
  * @param errors 
  */
-
+@JsonClass(generateAdapter = true)
 
 data class ErrorsResponse (
 

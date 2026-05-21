@@ -25,7 +25,7 @@ import com.squareup.moshi.JsonClass
  * @param eligible The claim code eligibility flag.
  * @param eligibleUntil The claim code eligibility until date.
  */
-
+@JsonClass(generateAdapter = true)
 
 data class UserClaimCodeEligibility (
 

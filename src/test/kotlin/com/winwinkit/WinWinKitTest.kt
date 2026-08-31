@@ -120,6 +120,44 @@ class WinWinKitTest {
     }
 
     @Test
+    fun `createAffiliateApplyLink posts the group slug and returns the link`() = runTest {
+        server.enqueue(MockResponse().setResponseCode(200).setBody(AFFILIATE_APPLY_LINK_RESPONSE_JSON))
+
+        val result = winwinkit.createAffiliateApplyLink(groupSlug = "creators")
+
+        assertTrue(result is ApiResult.Success)
+        assertEquals("https://winwinkit.com/apply/abc123", (result as ApiResult.Success).data.link)
+
+        val request = server.takeRequest()
+        assertEquals("POST", request.method)
+        assertEquals("/users/user-1/affiliate-apply-link", request.path)
+        assertEquals("test-key", request.getHeader("x-api-key"))
+        assertTrue(request.body.readUtf8().contains("\"group_slug\":\"creators\""))
+    }
+
+    @Test
+    fun `createAffiliateApplyLink omits the group slug when not given`() = runTest {
+        server.enqueue(MockResponse().setResponseCode(200).setBody(AFFILIATE_APPLY_LINK_RESPONSE_JSON))
+
+        val result = winwinkit.createAffiliateApplyLink()
+
+        assertTrue(result is ApiResult.Success)
+
+        val request = server.takeRequest()
+        assertTrue(!request.body.readUtf8().contains("group_slug"))
+    }
+
+    @Test
+    fun `createAffiliateApplyLink returns Failure with errors on 400`() = runTest {
+        server.enqueue(MockResponse().setResponseCode(400).setBody(ERRORS_400_JSON))
+
+        val result = winwinkit.createAffiliateApplyLink(groupSlug = "nope")
+
+        assertTrue(result is ApiResult.Failure)
+        assertEquals(400, (result as ApiResult.Failure).errors.first().status)
+    }
+
+    @Test
     fun `registerAppStoreTransaction posts original transaction id`() = runTest {
         server.enqueue(MockResponse().setResponseCode(204))
 
@@ -190,6 +228,10 @@ class WinWinKitTest {
     private companion object {
         const val EMPTY_BUCKETS =
             """{"basic":[],"credit":[],"offer_code":[],"googleplay_promo_code":[],"revenuecat_entitlement":[],"revenuecat_offering":[]}"""
+
+        const val AFFILIATE_APPLY_LINK_RESPONSE_JSON = """
+{"data":{"link":"https://winwinkit.com/apply/abc123"}}
+"""
 
         const val USER_RESPONSE_JSON = """
 {

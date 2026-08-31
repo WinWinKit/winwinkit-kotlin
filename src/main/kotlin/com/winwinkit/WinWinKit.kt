@@ -11,6 +11,8 @@ import com.winwinkit.client.infrastructure.ServerException
 import com.winwinkit.client.models.ErrorObject
 import com.winwinkit.client.models.ErrorsResponse
 import com.winwinkit.client.models.User
+import com.winwinkit.client.models.UserAffiliateApplyLinkRequest
+import com.winwinkit.client.models.UserAffiliateApplyLinkResponseData
 import com.winwinkit.client.models.UserClaimCodeRequest
 import com.winwinkit.client.models.UserClaimCodeResponseData
 import com.winwinkit.client.models.UserCreateRequest
@@ -93,6 +95,20 @@ class WinWinKit(
     ): ApiResult<UserGrantRewardResponseData> = call {
         val request = UserGrantRewardRequest(key = key, operationId = operationId)
         rewardsActionsApi.grantReward(requireAppUserId(), apiKey, request).data
+    }
+
+    /**
+     * Builds an affiliate apply link for the user, carrying a short-lived token so
+     * the affiliate they become is attributed back to them. Request it when the
+     * user asks to apply, rather than ahead of time.
+     *
+     * @param groupSlug The affiliate group to apply to. Omit to link to the app's default group.
+     */
+    suspend fun createAffiliateApplyLink(
+        groupSlug: String? = null,
+    ): ApiResult<UserAffiliateApplyLinkResponseData> = call {
+        val request = UserAffiliateApplyLinkRequest(groupSlug = groupSlug)
+        usersApi.createAffiliateApplyLink(requireAppUserId(), apiKey, request).data
     }
 
     suspend fun registerAppStoreTransaction(

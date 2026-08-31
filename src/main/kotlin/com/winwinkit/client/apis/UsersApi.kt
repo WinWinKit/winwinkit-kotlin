@@ -20,6 +20,8 @@ import okhttp3.Call
 import okhttp3.HttpUrl
 
 import com.winwinkit.client.models.ErrorsResponse
+import com.winwinkit.client.models.UserAffiliateApplyLinkRequest
+import com.winwinkit.client.models.UserAffiliateApplyLinkResponse
 import com.winwinkit.client.models.UserCreateRequest
 import com.winwinkit.client.models.UserRegisterAppStoreTransactionRequest
 import com.winwinkit.client.models.UserRegisterGooglePlayTransactionRequest
@@ -47,6 +49,87 @@ class UsersApi(basePath: kotlin.String = defaultBasePath, client: Call.Factory =
         val defaultBasePath: String by lazy {
             System.getProperties().getProperty(ApiClient.baseUrlKey, "https://api.winwinkit.com")
         }
+    }
+
+    /**
+     * POST /users/{app_user_id}/affiliate-apply-link
+     * Create Affiliate Apply Link
+     * Builds an affiliate apply link for the user, carrying a short-lived token so the affiliate they become is attributed back to them. Request it when the user asks to apply, rather than ahead of time.
+     * @param appUserId The app user id of the user applying.
+     * @param xApiKey The API key to authenticate with.
+     * @param userAffiliateApplyLinkRequest 
+     * @return UserAffiliateApplyLinkResponse
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createAffiliateApplyLink(appUserId: kotlin.String, xApiKey: kotlin.String, userAffiliateApplyLinkRequest: UserAffiliateApplyLinkRequest) : UserAffiliateApplyLinkResponse {
+        val localVarResponse = createAffiliateApplyLinkWithHttpInfo(appUserId = appUserId, xApiKey = xApiKey, userAffiliateApplyLinkRequest = userAffiliateApplyLinkRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UserAffiliateApplyLinkResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()} ${localVarError.body}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+     * POST /users/{app_user_id}/affiliate-apply-link
+     * Create Affiliate Apply Link
+     * Builds an affiliate apply link for the user, carrying a short-lived token so the affiliate they become is attributed back to them. Request it when the user asks to apply, rather than ahead of time.
+     * @param appUserId The app user id of the user applying.
+     * @param xApiKey The API key to authenticate with.
+     * @param userAffiliateApplyLinkRequest 
+     * @return ApiResponse<UserAffiliateApplyLinkResponse?>
+     * @throws IllegalStateException If the request is not correctly configured
+     * @throws IOException Rethrows the OkHttp execute method exception
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createAffiliateApplyLinkWithHttpInfo(appUserId: kotlin.String, xApiKey: kotlin.String, userAffiliateApplyLinkRequest: UserAffiliateApplyLinkRequest) : ApiResponse<UserAffiliateApplyLinkResponse?> {
+        val localVariableConfig = createAffiliateApplyLinkRequestConfig(appUserId = appUserId, xApiKey = xApiKey, userAffiliateApplyLinkRequest = userAffiliateApplyLinkRequest)
+
+        return request<UserAffiliateApplyLinkRequest, UserAffiliateApplyLinkResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+     * To obtain the request config of the operation createAffiliateApplyLink
+     *
+     * @param appUserId The app user id of the user applying.
+     * @param xApiKey The API key to authenticate with.
+     * @param userAffiliateApplyLinkRequest 
+     * @return RequestConfig
+     */
+    fun createAffiliateApplyLinkRequestConfig(appUserId: kotlin.String, xApiKey: kotlin.String, userAffiliateApplyLinkRequest: UserAffiliateApplyLinkRequest) : RequestConfig<UserAffiliateApplyLinkRequest> {
+        val localVariableBody = userAffiliateApplyLinkRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        xApiKey.apply { localVariableHeaders["x-api-key"] = this.toString() }
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/users/{app_user_id}/affiliate-apply-link".replace("{"+"app_user_id"+"}", encodeURIComponent(appUserId.toString())),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
+            body = localVariableBody
+        )
     }
 
     /**

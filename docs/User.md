@@ -18,6 +18,7 @@
 | **stats** | [**UserStats**](UserStats.md) | The stats of the user. |  |
 | **rewards** | [**UserRewards**](UserRewards.md) | The rewards of the user. |  |
 | **referralProgram** | [**ReferralProgram**](ReferralProgram.md) | The program of the user. |  |
+| **affiliate** | [**UserAffiliate**](UserAffiliate.md) | The affiliate this user was recruited into on this app, or null if they are not one. |  |
 
 
 

@@ -104,9 +104,12 @@ All URIs are relative to *https://api.winwinkit.com*
 
 | Class | Method | HTTP request | Description |
 | ------------ | ------------- | ------------- | ------------- |
+| *AnalyticsApi* | [**getAffiliateAnalytics**](docs/AnalyticsApi.md#getaffiliateanalytics) | **GET** /analytics/affiliates | Get Affiliate Analytics |
 | *ClaimActionsApi* | [**claimCode**](docs/ClaimActionsApi.md#claimcode) | **POST** /users/{app_user_id}/claim-code | Claim Code |
+| *CodesApi* | [**getCode**](docs/CodesApi.md#getcode) | **GET** /codes/{code} | Get Code |
 | *RewardsActionsApi* | [**grantReward**](docs/RewardsActionsApi.md#grantreward) | **POST** /users/{app_user_id}/rewards/grant | Grant a Reward |
 | *RewardsActionsApi* | [**withdrawCredits**](docs/RewardsActionsApi.md#withdrawcredits) | **POST** /users/{app_user_id}/rewards/withdraw-credits | Withdraw Credits |
+| *UsersApi* | [**createAffiliateApplyLink**](docs/UsersApi.md#createaffiliateapplylink) | **POST** /users/{app_user_id}/affiliate-apply-link | Create Affiliate Apply Link |
 | *UsersApi* | [**createOrUpdateUser**](docs/UsersApi.md#createorupdateuser) | **POST** /users | Create or Update User |
 | *UsersApi* | [**getUser**](docs/UsersApi.md#getuser) | **GET** /users/{app_user_id} | Get User |
 | *UsersApi* | [**registerAppStoreTransaction**](docs/UsersApi.md#registerappstoretransaction) | **POST** /users/{app_user_id}/transactions/app-store | Register App Store Transaction |
@@ -116,7 +119,18 @@ All URIs are relative to *https://api.winwinkit.com*
 <a id="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [com.winwinkit.client.models.AffiliateAnalytics](docs/AffiliateAnalytics.md)
+ - [com.winwinkit.client.models.AffiliateAnalyticsEntry](docs/AffiliateAnalyticsEntry.md)
+ - [com.winwinkit.client.models.AffiliateAnalyticsMetrics](docs/AffiliateAnalyticsMetrics.md)
+ - [com.winwinkit.client.models.AffiliateAnalyticsResponse](docs/AffiliateAnalyticsResponse.md)
+ - [com.winwinkit.client.models.AffiliatePlatform](docs/AffiliatePlatform.md)
  - [com.winwinkit.client.models.BasicReward](docs/BasicReward.md)
+ - [com.winwinkit.client.models.Code](docs/Code.md)
+ - [com.winwinkit.client.models.CodeAffiliate](docs/CodeAffiliate.md)
+ - [com.winwinkit.client.models.CodeEntity](docs/CodeEntity.md)
+ - [com.winwinkit.client.models.CodePromoCode](docs/CodePromoCode.md)
+ - [com.winwinkit.client.models.CodeReferralUser](docs/CodeReferralUser.md)
+ - [com.winwinkit.client.models.CodeResponse](docs/CodeResponse.md)
  - [com.winwinkit.client.models.CreditReward](docs/CreditReward.md)
  - [com.winwinkit.client.models.ErrorObject](docs/ErrorObject.md)
  - [com.winwinkit.client.models.ErrorsResponse](docs/ErrorsResponse.md)
@@ -124,6 +138,19 @@ All URIs are relative to *https://api.winwinkit.com*
  - [com.winwinkit.client.models.GooglePlayPromoCodeValue](docs/GooglePlayPromoCodeValue.md)
  - [com.winwinkit.client.models.OfferCodeReward](docs/OfferCodeReward.md)
  - [com.winwinkit.client.models.OfferCodeValue](docs/OfferCodeValue.md)
+ - [com.winwinkit.client.models.Pagination](docs/Pagination.md)
+ - [com.winwinkit.client.models.ReceiverBasicReward](docs/ReceiverBasicReward.md)
+ - [com.winwinkit.client.models.ReceiverBasicRewardDeactivation](docs/ReceiverBasicRewardDeactivation.md)
+ - [com.winwinkit.client.models.ReceiverCreditReward](docs/ReceiverCreditReward.md)
+ - [com.winwinkit.client.models.ReceiverGooglePlayPromoCodeReward](docs/ReceiverGooglePlayPromoCodeReward.md)
+ - [com.winwinkit.client.models.ReceiverOfferCodeReward](docs/ReceiverOfferCodeReward.md)
+ - [com.winwinkit.client.models.ReceiverRevenueCatEntitlementReward](docs/ReceiverRevenueCatEntitlementReward.md)
+ - [com.winwinkit.client.models.ReceiverRevenueCatOfferingReward](docs/ReceiverRevenueCatOfferingReward.md)
+ - [com.winwinkit.client.models.ReceiverRewardActivation](docs/ReceiverRewardActivation.md)
+ - [com.winwinkit.client.models.ReceiverRewardClaimActivation](docs/ReceiverRewardClaimActivation.md)
+ - [com.winwinkit.client.models.ReceiverRewardIntervalDeactivation](docs/ReceiverRewardIntervalDeactivation.md)
+ - [com.winwinkit.client.models.ReceiverRewardNeverDeactivation](docs/ReceiverRewardNeverDeactivation.md)
+ - [com.winwinkit.client.models.ReceiverRewards](docs/ReceiverRewards.md)
  - [com.winwinkit.client.models.ReferralProgram](docs/ReferralProgram.md)
  - [com.winwinkit.client.models.ReferralProgramReceiverBasicReward](docs/ReferralProgramReceiverBasicReward.md)
  - [com.winwinkit.client.models.ReferralProgramReceiverBasicRewardActivation](docs/ReferralProgramReceiverBasicRewardActivation.md)
@@ -191,6 +218,12 @@ All URIs are relative to *https://api.winwinkit.com*
  - [com.winwinkit.client.models.RevenueCatEntitlementReward](docs/RevenueCatEntitlementReward.md)
  - [com.winwinkit.client.models.RevenueCatOfferingReward](docs/RevenueCatOfferingReward.md)
  - [com.winwinkit.client.models.User](docs/User.md)
+ - [com.winwinkit.client.models.UserAffiliate](docs/UserAffiliate.md)
+ - [com.winwinkit.client.models.UserAffiliateApplyLinkRequest](docs/UserAffiliateApplyLinkRequest.md)
+ - [com.winwinkit.client.models.UserAffiliateApplyLinkResponse](docs/UserAffiliateApplyLinkResponse.md)
+ - [com.winwinkit.client.models.UserAffiliateApplyLinkResponseData](docs/UserAffiliateApplyLinkResponseData.md)
+ - [com.winwinkit.client.models.UserAffiliateCode](docs/UserAffiliateCode.md)
+ - [com.winwinkit.client.models.UserAffiliateStats](docs/UserAffiliateStats.md)
  - [com.winwinkit.client.models.UserBasicRewardActive](docs/UserBasicRewardActive.md)
  - [com.winwinkit.client.models.UserBasicRewardExpired](docs/UserBasicRewardExpired.md)
  - [com.winwinkit.client.models.UserClaimCodeEligibility](docs/UserClaimCodeEligibility.md)

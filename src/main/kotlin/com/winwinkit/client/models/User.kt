@@ -16,6 +16,7 @@
 package com.winwinkit.client.models
 
 import com.winwinkit.client.models.ReferralProgram
+import com.winwinkit.client.models.UserAffiliate
 import com.winwinkit.client.models.UserClaimCodeEligibility
 import com.winwinkit.client.models.UserReferredBy
 import com.winwinkit.client.models.UserRewards
@@ -41,6 +42,7 @@ import com.squareup.moshi.JsonClass
  * @param stats The stats of the user.
  * @param rewards The rewards of the user.
  * @param referralProgram The program of the user.
+ * @param affiliate The affiliate this user was recruited into on this app, or null if they are not one.
  */
 @JsonClass(generateAdapter = true)
 
@@ -101,7 +103,11 @@ data class User (
 
     /* The program of the user. */
     @Json(name = "referral_program")
-    val referralProgram: ReferralProgram?
+    val referralProgram: ReferralProgram?,
+
+    /* The affiliate this user was recruited into on this app, or null if they are not one. */
+    @Json(name = "affiliate")
+    val affiliate: UserAffiliate?
 
 ) {
 

@@ -54,7 +54,7 @@ Hand-written; not produced by `./openapi.generate` (the generator writes only un
   - `Serializer.kt` + Moshi adapters (`BigDecimalAdapter`, `LocalDateAdapter`, `OffsetDateTimeAdapter`, `UUIDAdapter`, `URIAdapter`, `ByteArrayAdapter`, `BigIntegerAdapter`, `LocalDateTimeAdapter`) — JSON (de)serialization.
   - `ApiResponse.kt`, `ResponseExtensions.kt`, `Errors.kt`, `RequestConfig.kt`, `RequestMethod.kt`, `ApiAbstractions.kt`, `PartConfig.kt` — request/response plumbing and collection-format handling (csv, tsv, ssv, pipes).
 
-Dependencies (from `build.gradle`): Moshi 1.15.1 (`moshi` + `moshi-adapters`, plus the `moshi-kotlin-codegen` KSP processor), OkHttp 4.12.0, Kotlin stdlib-jdk8 1.9.23. The build applies the KSP plugin (`com.google.devtools.ksp`) so Moshi generates JSON adapters at compile time — there is no `kotlin-reflect` dependency, and minified consumers need no SDK-specific ProGuard/R8 rules. Spotless uses `ktfmt`. Published as a Maven artifact (`group 'com.winwinkit.sdk'`, `version '0.4.0'`).
+Dependencies (from `build.gradle`): Moshi 1.15.1 (`moshi` + `moshi-adapters`, plus the `moshi-kotlin-codegen` KSP processor), OkHttp 4.12.0, Kotlin stdlib-jdk8 1.9.23. The build applies the KSP plugin (`com.google.devtools.ksp`) so Moshi generates JSON adapters at compile time — there is no `kotlin-reflect` dependency, and minified consumers need no SDK-specific ProGuard/R8 rules. Spotless uses `ktfmt`. Published as a Maven artifact (`group 'com.winwinkit.sdk'`, `version '0.5.0'`).
 
 ## Working with generated code
 
